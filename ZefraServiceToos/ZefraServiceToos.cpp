@@ -1,7 +1,11 @@
 #include "ZefraServiceToos.h"
 char* m_char = NULL;  
 wchar_t* m_wchar  = NULL;
-
+void zServiceToos::DestoryPoint(void* point,bool isArr) 
+{
+    if(point && isArr){ delete[] point;point = NULL; }
+    if(point && !isArr){ delete point;point = NULL; }
+}
 void inline zServiceToos::Release()  
 {  
     if(m_char) {delete m_char; m_char = NULL;}  
@@ -48,7 +52,7 @@ char* zServiceToos::WcharToChar(const wchar_t* wp)
 char* zServiceToos::CompanChar(const char* charA,const char* charB)
 {
     //malloc分配的内存会在程序main函数结束后被系统回收
-    char *chrRes = (char *)malloc(strlen(charA) + strlen(charB) + 1);//向系统申请指定a+b+1个字节的内存空间分配给c，a+b+1代表c包含了a,b和结尾的'\0'
+    char*chrRes = new char[strlen(charA) + strlen(charB) + 1];//向系统申请指定a+b+1个字节的内存空间分配给c，a+b+1代表c包含了a,b和结尾的'\0'
     for (int i = 0; charA[i] != '\0'; i++){
         chrRes[i] = charA[i];
     }
@@ -61,9 +65,9 @@ char* zServiceToos::CompanChar(const char* charA,const char* charB)
 }
 char*  zServiceToos::GetRootPath() {
     /*
-     _pgmptr是C/C++语言中的一个全局变量名，位于stdlib.h头文件中，
-     用于存储当前程序可执行文件的完整路径。该变量在运行时自动被初始化，
-     不能手动修改。
+    _pgmptr是C/C++语言中的一个全局变量名，位于stdlib.h头文件中，
+    用于存储当前程序可执行文件的完整路径。该变量在运行时自动被初始化，
+    不能手动修改。
     */
     char* path = _pgmptr;
     char * _running_path =  nullptr;
@@ -71,7 +75,7 @@ char*  zServiceToos::GetRootPath() {
     {
         if(path[i] == '\\') 
         {
-            _running_path = (char *)malloc(i + 1);
+            _running_path =  new char[i + 1];
             for (int j = 0; j < i; j++){
                 _running_path[j] = path[j];
             }

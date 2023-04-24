@@ -35,9 +35,14 @@ VOID WINAPI zefraBgService::Ctrlhandler(DWORD request) {
     //向SCM报告“SERVICE_STOPPED”状态
     SetServiceStatus(hStatus,&serviceStatus);
 }
-VOID zefraBgService::ServiceMain(DWORD dwNumServicesArgs, LPWSTR *lpServiceArgVectors) {//这个是我们运行的主函数
-    bgService.log_path = zServiceToos::CompanChar(bgService.running_path.data(),"\\log\\run.log");
-    bgService.pics_path = zServiceToos::CompanChar(bgService.running_path.data(),"\\pics\\");
+VOID zefraBgService::ServiceMain(DWORD dwNumServicesArgs, LPWSTR *lpServiceArgVectors) {//这个是我们运行的主函数   
+    WriteToLog("【Service】ServiceMain start");
+    char *log_path = zServiceToos::CompanChar(bgService.running_path.data(),"\\log\\run.log");
+    char *pics_path = zServiceToos::CompanChar(bgService.running_path.data(),"\\log\\run.log");
+    bgService.log_path = log_path;//string是拷贝一个对象过来
+    bgService.pics_path = pics_path;
+    zServiceToos::DestoryPoint(log_path);
+    zServiceToos::DestoryPoint(pics_path);
     serviceStatus.dwServiceType = SERVICE_WIN32_OWN_PROCESS;//设置为管理员权限模式
    // serviceStatus.dwServiceType = SERVICE_WIN32_OWN_PROCESS;
     //服务当前状态，在这里的时候初始化未完成，所以pending，挂起的意思
@@ -87,7 +92,9 @@ VOID zefraBgService::ServiceMain(DWORD dwNumServicesArgs, LPWSTR *lpServiceArgVe
           表不能通过事务修改，因为它和用户挂钩，只能用正常的exe修改
         */
         //这里我们让第一个服务循环调用
-        std::string exe_path = zServiceToos::CompanChar(bgService.running_path.data(),"\\ZefraBgSwitchExe.exe");
+        char * excharPath = zServiceToos::CompanChar(bgService.running_path.data(),"\\ZefraBgSwitchExe.exe");
+        std::string exe_path = excharPath;
+        zServiceToos::DestoryPoint(excharPath);
         DWORD dwSessionId = WTSGetActiveConsoleSessionId(); // 获取当前会话ID
         HANDLE hToken = NULL;
 

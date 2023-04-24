@@ -1,0 +1,7 @@
+{
+  "Service": {
+    "SwitchingTime": 600000,
+    "bgPath": "D:\\ZefraWindowsService\\pics\\",
+    "openService": true
+  }
+}

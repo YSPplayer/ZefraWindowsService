@@ -3,7 +3,10 @@
 #include<iostream>
 #include <atltime.h>
 namespace zServiceToos {
-	void inline Release();
+	/// <summary>
+	/// 释放我们的指针内存，如果为true则delete[]，默认delete[]
+	/// </summary>
+	__declspec(dllexport) void DestoryPoint(void* point,bool isArr = true);
 	/// <summary>
 	/// 创建一个文件，并向该文件中写入数据
 	/// </summary>
@@ -12,19 +15,19 @@ namespace zServiceToos {
 	/// <returns></returns>
 	__declspec(dllexport) int WriteToLog(const char* str,const char* path);
 	/// <summary>
-	///  Wchar*转Char*
+	///  Wchar*转Char*，第二次调用时会释放掉前者调用所返回对象的内存
 	/// </summary>
 	/// <param name="w">被转换的wchar*对象</param>
 	/// <returns></returns>
 	__declspec(dllexport) char* WcharToChar(const wchar_t* w);
 	/// <summary>
-	/// Char*转Wchar*
+	/// Char*转Wchar*，第二次调用时会释放掉前者调用所返回对象的内存
 	/// </summary>
 	/// <param name="c">被转换的char*对象</param>
 	/// <returns></returns>
 	__declspec(dllexport) wchar_t* CharToWchar(const char* c);
 	/// <summary>
-	/// 拼接charA+charB字符，返回新字符C
+	/// 拼接charA+charB字符，返回新字符C,，请手动释放内存
 	/// </summary>
 	/// <param name="charA">字符A</param>
 	/// <param name="charB">字符B</param>
@@ -38,10 +41,11 @@ namespace zServiceToos {
 	/// <returns></returns>
 	__declspec(dllexport) UINT32 GetRandomNumber(UINT32 min,UINT32 max);
 	/// <summary>
-	/// 获取当前目录的绝对路径
+	/// 获取当前目录的绝对路径，请手动释放内存
 	/// </summary>
 	/// <returns></returns>
 	__declspec(dllexport) char * GetRootPath();
+	void inline Release();
 
 }
 
