@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <wtsapi32.h>
 #include <userenv.h>
-#include "include/ZefraServiceToos.h"
+#include "../ZefraServiceToos/ZefraServiceToos.h"
 #pragma comment(lib, "Wtsapi32.lib")
 #pragma comment(lib, "Userenv.lib")
 namespace zefraBgService {

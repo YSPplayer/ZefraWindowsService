@@ -5,8 +5,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include "include/ZefraServiceToos.h"
-#include "include/nlohmann/json.hpp"//这里使用json来配置我们的文件
+#include "../ZefraServiceToos/ZefraServiceToos.h"
+#include "../include/nlohmann/json.hpp"//这里使用json来配置我们的文件
 using json = nlohmann::json;
 char* log_path = NULL;
 char* running_path = NULL;
