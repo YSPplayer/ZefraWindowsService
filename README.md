@@ -13,7 +13,7 @@
   ## 项目Build食用方法  
   ①：下载[premake5](https://premake.github.io/)，然后放到项目主文件夹下  
   ②：拉取`nlohmann`官方git代码到项目文件夹中的`include`文件夹下，链接在`include`文件夹下  
-  ③：运行项目文件夹下的build.bat文件，构建VS项目。(默认是vs2019版本，其他版本可手动`premake5 vsXXXX`)
+  ③：运行项目文件夹下的build.bat文件，构建VS项目。(默认是vs2019版本，其他版本可手动`premake5 vsXXXX`)  
   ④：打开项目，生成文件即可。(暂不支持×64)
   
   
